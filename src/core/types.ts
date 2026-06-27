@@ -1,7 +1,7 @@
 export interface RateLimitResult {
     allowed: boolean
     remaining: number // tokens/slots left
-    list: number
+    limit: number
     resetMs: number // ms until window/refill resets
     retryAfterMs: number// 0 when allowed
 }
