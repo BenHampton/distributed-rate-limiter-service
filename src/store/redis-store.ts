@@ -13,10 +13,17 @@ export class RedisStore implements Store {
         this.redis.defineCommand(name, { numberOfKeys: 1, lua })
     }
 
-    async runScript(name: string, keys: string[], args: (string | number)[]): Promise<number[]> {
+    async runScript(name: string, keys: string[], args: (string | number)[]): Promise<[number, number, number]> {
         // @ts-expect-error dynamic command added by defineCommand
         const res = await this.redis[name](...keys, ...args);
-        return (res as number[]).map(Number)
+        const out = (res as unknown[]).map(Number)
+        const [allowed, remaining, reset] = out
+
+        if (allowed === undefined || remaining === undefined || reset === undefined) {
+            throw new Error(`script ${name} returned ${out.length} values, expected 3`);
+        }
+
+        return [allowed, remaining, reset];
     }
 
     close() {

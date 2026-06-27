@@ -26,7 +26,9 @@ export class MetricsBus extends EventEmitter {
         const timeout= setInterval(() =>
             this.emit('snapshot', this.snapshot(), everyMs))
 
+        //timer won't block a graceful shutdown
         timeout.unref() // dont keep the process alive just for metrics
+
         return timeout
     }
 }

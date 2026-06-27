@@ -5,7 +5,7 @@ import type { MetricsBus } from "../core/metrics.js";
 
 interface Opts {
     strategy: RateLimitStrategy
-    metics: MetricsBus
+    metrics: MetricsBus
     ketFrom?: (req: { ip: string, headers: Record<string, unknown> }) => string
 }
 
@@ -24,7 +24,7 @@ const plugin: FastifyPluginAsync<Opts> = async (app, opts) => {
         reply.header('X-RateLimit-Limit', r.limit)
         reply.header('X-RateLimit-Remaining', Math.max(0, r.remaining))
 
-        opts.metics.record(r.allowed) // feeds the live counter
+        opts.metrics.record(r.allowed) // feeds the live counter
 
         if (!r.allowed) {
             reply.header('Retry-After', Math.ceil(r.retryAfterMs / 1000))

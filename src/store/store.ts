@@ -8,7 +8,7 @@ export interface Store {
         name: string,
         key:string[],
         args: (string | number)[]
-    ): Promise<number[]>
+    ): Promise<[number, number, number]>
 
     close(): Promise<void>
 }
