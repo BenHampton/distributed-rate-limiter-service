@@ -6,7 +6,7 @@ import type { MetricsBus } from "../core/metrics.js";
 interface Opts {
     strategy: RateLimitStrategy
     metrics: MetricsBus
-    ketFrom?: (req: { ip: string, headers: Record<string, unknown> }) => string
+    keyFrom?: (req: { ip: string, headers: Record<string, unknown> }) => string
 }
 
 // Fastify onRequest hook runs before body parsing
@@ -14,7 +14,7 @@ interface Opts {
 // reject early in the lifecycle before deserialization
 const plugin: FastifyPluginAsync<Opts> = async (app, opts) => {
 
-    const keyForm = opts.ketFrom ?? ((r) => r.ip)
+    const keyForm = opts.keyFrom ?? ((r) => r.ip)
 
     app.addHook('onRequest', async (req, reply) => {
 

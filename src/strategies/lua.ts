@@ -54,6 +54,7 @@ if weighted + 1 > limit then
 end
 
 redis.call('INCR', curKey)
-redis.call('PEXPIRE', curKey, win * 2)
+redis.call('PEXPIRE', KEYS[1], math.ceil(cap / rate) * 2)   -- *2 for headroom
+
 return { 1, limit - math.floor(weighted) - 1, win - (now % win) }
 `

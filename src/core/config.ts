@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import 'dotenv/config';
 
 const Schema = z.object({
     PORT: z.coerce.number().default(3000),
@@ -13,6 +14,8 @@ export type Config = z.infer<typeof Schema>
 
 export function loadConfig(): Config {
     const parsed = Schema.safeParse(process.env)
+
+    console.log("[config]", parsed.data);
 
     if (!parsed.success) {
         console.error("✗ Invalid configuration:", parsed.error.message);

@@ -23,8 +23,7 @@ export class MetricsBus extends EventEmitter {
     }
 
     startBroadcast(everyMs = 500): NodeJS.Timeout {
-        const timeout= setInterval(() =>
-            this.emit('snapshot', this.snapshot(), everyMs))
+        const timeout = setInterval(() => this.emit("snapshot", this.snapshot()), everyMs);
 
         //timer won't block a graceful shutdown
         timeout.unref() // dont keep the process alive just for metrics
