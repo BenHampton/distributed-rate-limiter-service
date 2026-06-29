@@ -52,3 +52,5 @@ out/
 cmake-build-*/
 .idea_modules/
 atlassian-ide-plugin.xml
+
+.env
