@@ -6,6 +6,21 @@ The point of the project: rate limiting that stays **correct under concurrency**
 
 ---
 
+## Running locally
+
+1. start redis:
+2. install and build
+3. start app
+
+The server logs that it's listening on `:3000`. `npm run dev`
+
+### Websocket
+1. https://websocketking.com/
+2. connect using: `ws://localhost:3000/ws/metrics`
+3. send requests
+
+---
+
 ## Architecture
 
 ```
@@ -83,16 +98,6 @@ All config is read from the environment at boot and validated with zod — the p
 | `RATE_ALGO` | `token-bucket` | `token-bucket` or `sliding-window` |
 | `RATE_LIMIT` | `10` | Requests allowed per window |
 | `RATE_WINDOW_MS` | `1000` | Window length in milliseconds |
-
----
-
-## Running locally (with local Redis)
-
-1. start redis: 
-2. install and build
-3. start app
-
-The server logs that it's listening on `:3000`. `npm run dev`
 
 ---
 
